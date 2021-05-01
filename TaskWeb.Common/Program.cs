@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace TaskWebApi
+namespace TaskWeb.Common
 {
-    internal static class Program
+    class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
         }

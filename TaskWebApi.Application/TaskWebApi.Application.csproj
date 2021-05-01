@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TaskWebApi.Common\TaskWebApi.Common.csproj" />
+      <ProjectReference Include="..\TaskWebApi.Repository\TaskWebApi.Repository.csproj" />
+      <ProjectReference Include="..\TaskWebApi.Server\TaskWebApi.Server.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.0.78" />
+    </ItemGroup>
+
+</Project>

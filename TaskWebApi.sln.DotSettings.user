@@ -1,0 +1,7 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=abcdefghijklmnopqrstuvxyz/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=coms/@EntryIndexedValue">True</s:Boolean>
+	
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Fname/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=gerogian/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=_10D0_10D1_10D2_10D3_10D4_10D5_10D6_10D7_10D8_10D9_10DA_10DB_10DC_10DD_10DE_10DF_10E0_10E1_10E2_10E3_10E4_10E5_10E6_10E7_10E8_10E9_10EA_10EB_10EC_10ED_10EE_10EF_10F0/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
