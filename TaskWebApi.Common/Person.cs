@@ -1,4 +1,7 @@
 ﻿// ReSharper disable all UnusedMember.Local
+
+using System.Collections.Generic;
+
 namespace TaskWebApi
 {
     public class Person
@@ -13,5 +16,6 @@ namespace TaskWebApi
         public string City { get; set; }
         public string PhoneNumber { get; set; }
         public string ImageLocation { get; set; }
+        public List<string> Relations { get; set; }
     }
 }
