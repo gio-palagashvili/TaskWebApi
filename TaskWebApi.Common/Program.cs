@@ -6,7 +6,6 @@ namespace TaskWebApi
     {
         private static void Main()
         {
-            Console.WriteLine("com");
         }
     }
 }

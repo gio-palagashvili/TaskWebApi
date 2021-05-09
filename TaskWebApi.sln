@@ -1,24 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWebApi.Common", "TaskWebApi.Common\TaskWebApi.Common.csproj", "{90B7DC87-4E9C-4C95-A42D-6CD94F2FEEA3}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskWebApi.Common", "TaskWebApi.Common\TaskWebApi.Common.csproj", "{90B7DC87-4E9C-4C95-A42D-6CD94F2FEEA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Common", "TaskWebApi.Common", "{7DE29B27-50C2-45E7-898F-CF56C1417A1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Application", "TaskWebApi.Application", "{7E258A89-5B74-4A2E-8CA9-2ABDE29300CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWebApi.Application", "TaskWebApi.Application\TaskWebApi.Application.csproj", "{4F0EAAD3-828A-405A-A1EE-2778DF7B6A5F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Server", "TaskWebApi.Server", "{726F2A0B-ACC0-49ED-998C-C92758B92D5E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWebApi.Server", "TaskWebApi.Server\TaskWebApi.Server.csproj", "{062A17FC-B805-452A-86EF-5F78384DED53}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Repository.Dapper", "TaskWebApi.Repository.Dapper", "{2B3085C6-CE26-40E4-BF28-6111B528FA95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Repository", "TaskWebApi.Repository", "{91A93987-D9A4-4C31-8C76-25DA648B4824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWebApi.Repository", "TaskWebApi.Repository\TaskWebApi.Repository.csproj", "{5210E788-7482-4800-8953-0BBD6271BA2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskWebApi.Repository", "TaskWebApi.Repository\TaskWebApi.Repository.csproj", "{5210E788-7482-4800-8953-0BBD6271BA2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWebApi.Repository.Dapper", "TaskWebApi.Repository.Dapper\TaskWebApi.Repository.Dapper.csproj", "{592F0B46-7F0C-4D4B-BD11-D8BEE1B95640}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskWebApi.Repository.Dapper", "TaskWebApi.Repository.Dapper\TaskWebApi.Repository.Dapper.csproj", "{592F0B46-7F0C-4D4B-BD11-D8BEE1B95640}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{4D6811E1-FDC5-4031-ABAC-49E22083911C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication3", "TaskWebApi.Application\WebApplication3\WebApplication3.csproj", "{D01495F7-9C59-468B-B9CE-F5D62CEFD87C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,14 +33,6 @@ Global
 		{90B7DC87-4E9C-4C95-A42D-6CD94F2FEEA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90B7DC87-4E9C-4C95-A42D-6CD94F2FEEA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90B7DC87-4E9C-4C95-A42D-6CD94F2FEEA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F0EAAD3-828A-405A-A1EE-2778DF7B6A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F0EAAD3-828A-405A-A1EE-2778DF7B6A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F0EAAD3-828A-405A-A1EE-2778DF7B6A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F0EAAD3-828A-405A-A1EE-2778DF7B6A5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{062A17FC-B805-452A-86EF-5F78384DED53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{062A17FC-B805-452A-86EF-5F78384DED53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{062A17FC-B805-452A-86EF-5F78384DED53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{062A17FC-B805-452A-86EF-5F78384DED53}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5210E788-7482-4800-8953-0BBD6271BA2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5210E788-7482-4800-8953-0BBD6271BA2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5210E788-7482-4800-8953-0BBD6271BA2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,12 +41,26 @@ Global
 		{592F0B46-7F0C-4D4B-BD11-D8BEE1B95640}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{592F0B46-7F0C-4D4B-BD11-D8BEE1B95640}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{592F0B46-7F0C-4D4B-BD11-D8BEE1B95640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D6811E1-FDC5-4031-ABAC-49E22083911C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D6811E1-FDC5-4031-ABAC-49E22083911C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D6811E1-FDC5-4031-ABAC-49E22083911C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D6811E1-FDC5-4031-ABAC-49E22083911C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D01495F7-9C59-468B-B9CE-F5D62CEFD87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D01495F7-9C59-468B-B9CE-F5D62CEFD87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D01495F7-9C59-468B-B9CE-F5D62CEFD87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D01495F7-9C59-468B-B9CE-F5D62CEFD87C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{90B7DC87-4E9C-4C95-A42D-6CD94F2FEEA3} = {7DE29B27-50C2-45E7-898F-CF56C1417A1A}
-		{4F0EAAD3-828A-405A-A1EE-2778DF7B6A5F} = {7E258A89-5B74-4A2E-8CA9-2ABDE29300CD}
-		{062A17FC-B805-452A-86EF-5F78384DED53} = {726F2A0B-ACC0-49ED-998C-C92758B92D5E}
 		{5210E788-7482-4800-8953-0BBD6271BA2A} = {91A93987-D9A4-4C31-8C76-25DA648B4824}
 		{592F0B46-7F0C-4D4B-BD11-D8BEE1B95640} = {2B3085C6-CE26-40E4-BF28-6111B528FA95}
+		{4D6811E1-FDC5-4031-ABAC-49E22083911C} = {7E258A89-5B74-4A2E-8CA9-2ABDE29300CD}
+		{D01495F7-9C59-468B-B9CE-F5D62CEFD87C} = {7E258A89-5B74-4A2E-8CA9-2ABDE29300CD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69FB22A2-21C2-4C15-80BD-2586DA55E091}
 	EndGlobalSection
 EndGlobal
