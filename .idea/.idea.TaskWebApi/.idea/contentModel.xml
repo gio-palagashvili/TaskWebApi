@@ -7,30 +7,7 @@
     <e p="C:\Users\Gio\AppData\Roaming\JetBrains\Rider2020.3\extensions" t="IncludeRecursive" />
     <e p="C:\Users\Gio\Documents\c#\TaskWebApi" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
-      <e p="TaskWebApi.Application" t="Include">
-        <e p="WebApplication3" t="IncludeRecursive">
-          <e p="appsettings.Development.json" t="Include" />
-          <e p="appsettings.json" t="Include" />
-          <e p="bin" t="ExcludeRecursive" />
-          <e p="Controllers" t="Include">
-            <e p="WeatherForecastController.cs" t="Include" />
-          </e>
-          <e p="obj" t="ExcludeRecursive">
-            <e p="Debug" t="Include">
-              <e p="net5.0" t="Include">
-                <e p="WebApplication3.AssemblyInfo.cs" t="Include" />
-              </e>
-            </e>
-          </e>
-          <e p="Program.cs" t="Include" />
-          <e p="Properties" t="Include">
-            <e p="launchSettings.json" t="Include" />
-          </e>
-          <e p="Startup.cs" t="Include" />
-          <e p="WeatherForecast.cs" t="Include" />
-          <e p="WebApplication3.csproj" t="IncludeRecursive" />
-        </e>
-      </e>
+      <e p="TaskWebApi.Application" t="Include" />
       <e p="TaskWebApi.Common" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
@@ -50,6 +27,8 @@
       <e p="TaskWebApi.Repository" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="CommandCheck.cs" t="Include" />
+        <e p="DeletePersonRep.cs" t="Include" />
+        <e p="GetPersonRep.cs" t="Include" />
         <e p="InsertPerson.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -63,6 +42,8 @@
       </e>
       <e p="TaskWebApi.Repository.Dapper" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Connection.cs" t="Include" />
+        <e p="DeletePersonDapper.cs" t="Include" />
         <e p="InsertPerson.Dapper.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -77,152 +58,26 @@
       </e>
       <e p="TaskWebApi.Server" t="Include" />
       <e p="TaskWebApi.sln" t="IncludeFlat" />
-      <e p="WebApplication2" t="IncludeRecursive">
-        <e p="App_Data" t="Include" />
-        <e p="App_Start" t="Include">
-          <e p="BundleConfig.cs" t="Include" />
-          <e p="FilterConfig.cs" t="Include" />
-          <e p="RouteConfig.cs" t="Include" />
-          <e p="WebApiConfig.cs" t="Include" />
-        </e>
-        <e p="Areas" t="Include">
-          <e p="HelpPage" t="Include">
-            <e p="ApiDescriptionExtensions.cs" t="Include" />
-            <e p="App_Start" t="Include">
-              <e p="HelpPageConfig.cs" t="Include" />
-            </e>
-            <e p="Controllers" t="Include">
-              <e p="HelpController.cs" t="Include" />
-            </e>
-            <e p="HelpPage.css" t="Include" />
-            <e p="HelpPageAreaRegistration.cs" t="Include" />
-            <e p="HelpPageConfigurationExtensions.cs" t="Include" />
-            <e p="ModelDescriptions" t="Include">
-              <e p="CollectionModelDescription.cs" t="Include" />
-              <e p="ComplexTypeModelDescription.cs" t="Include" />
-              <e p="DictionaryModelDescription.cs" t="Include" />
-              <e p="EnumTypeModelDescription.cs" t="Include" />
-              <e p="EnumValueDescription.cs" t="Include" />
-              <e p="IModelDocumentationProvider.cs" t="Include" />
-              <e p="KeyValuePairModelDescription.cs" t="Include" />
-              <e p="ModelDescription.cs" t="Include" />
-              <e p="ModelDescriptionGenerator.cs" t="Include" />
-              <e p="ModelNameAttribute.cs" t="Include" />
-              <e p="ModelNameHelper.cs" t="Include" />
-              <e p="ParameterAnnotation.cs" t="Include" />
-              <e p="ParameterDescription.cs" t="Include" />
-              <e p="SimpleTypeModelDescription.cs" t="Include" />
-            </e>
-            <e p="Models" t="Include">
-              <e p="HelpPageApiModel.cs" t="Include" />
-            </e>
-            <e p="SampleGeneration" t="Include">
-              <e p="HelpPageSampleGenerator.cs" t="Include" />
-              <e p="HelpPageSampleKey.cs" t="Include" />
-              <e p="ImageSample.cs" t="Include" />
-              <e p="InvalidSample.cs" t="Include" />
-              <e p="ObjectGenerator.cs" t="Include" />
-              <e p="SampleDirection.cs" t="Include" />
-              <e p="TextSample.cs" t="Include" />
-            </e>
-            <e p="Views" t="Include">
-              <e p="_ViewStart.cshtml" t="Include" />
-              <e p="Help" t="Include">
-                <e p="Api.cshtml" t="Include" />
-                <e p="DisplayTemplates" t="Include">
-                  <e p="ApiGroup.cshtml" t="Include" />
-                  <e p="CollectionModelDescription.cshtml" t="Include" />
-                  <e p="ComplexTypeModelDescription.cshtml" t="Include" />
-                  <e p="DictionaryModelDescription.cshtml" t="Include" />
-                  <e p="EnumTypeModelDescription.cshtml" t="Include" />
-                  <e p="HelpPageApiModel.cshtml" t="Include" />
-                  <e p="ImageSample.cshtml" t="Include" />
-                  <e p="InvalidSample.cshtml" t="Include" />
-                  <e p="KeyValuePairModelDescription.cshtml" t="Include" />
-                  <e p="ModelDescriptionLink.cshtml" t="Include" />
-                  <e p="Parameters.cshtml" t="Include" />
-                  <e p="Samples.cshtml" t="Include" />
-                  <e p="SimpleTypeModelDescription.cshtml" t="Include" />
-                  <e p="TextSample.cshtml" t="Include" />
-                </e>
-                <e p="Index.cshtml" t="Include" />
-                <e p="ResourceModel.cshtml" t="Include" />
-              </e>
-              <e p="Shared" t="Include">
-                <e p="_Layout.cshtml" t="Include" />
-              </e>
-              <e p="Web.config" t="Include" />
-            </e>
-            <e p="XmlDocumentationProvider.cs" t="Include" />
-          </e>
-        </e>
+      <e p="WepApi" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Content" t="Include">
-          <e p="bootstrap-theme.css" t="Include" />
-          <e p="bootstrap-theme.css.map" t="Include" />
-          <e p="bootstrap-theme.min.css" t="Include" />
-          <e p="bootstrap-theme.min.css.map" t="Include" />
-          <e p="bootstrap.css" t="Include" />
-          <e p="bootstrap.css.map" t="Include" />
-          <e p="bootstrap.min.css" t="Include" />
-          <e p="bootstrap.min.css.map" t="Include" />
-          <e p="Site.css" t="Include" />
-        </e>
         <e p="Controllers" t="Include">
-          <e p="HomeController.cs" t="Include" />
           <e p="PersonController.cs" t="Include" />
-          <e p="ValuesController.cs" t="Include" />
         </e>
-        <e p="favicon.ico" t="Include" />
-        <e p="fonts" t="Include">
-          <e p="glyphicons-halflings-regular.eot" t="Include" />
-          <e p="glyphicons-halflings-regular.svg" t="Include" />
-          <e p="glyphicons-halflings-regular.ttf" t="Include" />
-          <e p="glyphicons-halflings-regular.woff" t="Include" />
-          <e p="glyphicons-halflings-regular.woff2" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="WepApi.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
         </e>
-        <e p="Global.asax" t="Include" />
-        <e p="Global.asax.cs" t="Include" />
-        <e p="Models" t="Include">
-          <e p="Person.cs" t="Include" />
-          <e p="Test.cs" t="Include" />
-        </e>
-        <e p="obj" t="ExcludeRecursive" />
-        <e p="packages.config" t="Include" />
+        <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
-          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="launchSettings.json" t="Include" />
         </e>
-        <e p="Scripts" t="Include">
-          <e p="bootstrap.js" t="Include" />
-          <e p="bootstrap.min.js" t="Include" />
-          <e p="jquery-3.4.1.intellisense.js" t="Include" />
-          <e p="jquery-3.4.1.js" t="Include" />
-          <e p="jquery-3.4.1.min.js" t="Include" />
-          <e p="jquery-3.4.1.min.map" t="Include" />
-          <e p="jquery-3.4.1.slim.js" t="Include" />
-          <e p="jquery-3.4.1.slim.min.js" t="Include" />
-          <e p="jquery-3.4.1.slim.min.map" t="Include" />
-          <e p="modernizr-2.8.3.js" t="Include" />
-        </e>
-        <e p="Views" t="Include">
-          <e p="_ViewStart.cshtml" t="Include" />
-          <e p="Home" t="Include">
-            <e p="Index.cshtml" t="Include" />
-          </e>
-          <e p="Person" t="Include">
-            <e p="Create.cshtml" t="Include" />
-          </e>
-          <e p="Shared" t="Include">
-            <e p="_Layout.cshtml" t="Include" />
-            <e p="Error.cshtml" t="Include" />
-          </e>
-          <e p="Test" t="Include" />
-          <e p="Web.config" t="Include" />
-        </e>
-        <e p="Web.config" t="Include" />
-        <e p="Web.Debug.config" t="Include" />
-        <e p="Web.Release.config" t="Include" />
-        <e p="WebApplication2.csproj" t="IncludeRecursive" />
+        <e p="Startup.cs" t="Include" />
+        <e p="WepApi.csproj" t="IncludeRecursive" />
       </e>
     </e>
   </component>

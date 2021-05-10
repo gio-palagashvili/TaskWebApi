@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="1.50.3-beta1" />
+      <PackageReference Include="Dapper" Version="2.0.78" />
       <PackageReference Include="MySql.Data" Version="8.0.24" />
     </ItemGroup>
 
