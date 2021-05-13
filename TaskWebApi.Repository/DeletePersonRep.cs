@@ -6,9 +6,10 @@ namespace TaskWeb.Repository
 {
     public class DeletePersonRep : DeletePersonDapper
     {
-        public DeletePersonRep(string s)
+        public static async Task<bool> Delete(string s)
         {
             var z = DeletePersonAsync(s);
+            return await z;
         }
     }
 }

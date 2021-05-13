@@ -56,7 +56,7 @@
         <e p="RetrievePerson.Dapper.cs" t="Include" />
         <e p="TaskWebApi.Repository.Dapper.csproj" t="IncludeRecursive" />
       </e>
-      <e p="TaskWebApi.Server" t="Include" />
+      <e p="TaskWebApi.Service" t="Include" />
       <e p="TaskWebApi.sln" t="IncludeFlat" />
       <e p="WepApi" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />

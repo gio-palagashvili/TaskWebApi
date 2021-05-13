@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskWebApi.Common", "TaskWe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Common", "TaskWebApi.Common", "{7DE29B27-50C2-45E7-898F-CF56C1417A1A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Server", "TaskWebApi.Server", "{726F2A0B-ACC0-49ED-998C-C92758B92D5E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Service", "TaskWebApi.Service", "{726F2A0B-ACC0-49ED-998C-C92758B92D5E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Repository.Dapper", "TaskWebApi.Repository.Dapper", "{2B3085C6-CE26-40E4-BF28-6111B528FA95}"
 EndProject

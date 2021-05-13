@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using TaskWeb.Repository;
 using TaskWebApi;
 
@@ -12,17 +14,19 @@ namespace WepApi.Controllers
     public class PersonController : ControllerBase
     {
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPerson(string id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Person))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Person>> GetPerson(string id)
         {
             var person = new GetPersonRep().GetPersonRepp(id);
             return (new GetPersonRep().GetPersonRepp(id) is null) ? NotFound("Id was not found in the database") : Ok(new GetPersonRep().GetPersonRepp(id));
         }
-
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeletePerson(string id)
         {
-            _ = new DeletePersonRep(id);
-            return Ok();
+            return DeletePersonRep.Delete(id).Result ? NotFound($"Person ${id} was not found") : Ok($"Person ${id} was deleted");
         }
         [HttpPost]
         public async Task<IActionResult> InsertPerson([FromBody]Person person)

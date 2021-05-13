@@ -8,7 +8,6 @@ namespace TaskWeb.Repository
     {
         private static void Main()
         {
-            var z = new DeletePersonRep("934419545");
         }
     }
 }
