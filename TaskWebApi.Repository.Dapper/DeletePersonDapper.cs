@@ -11,9 +11,17 @@ namespace TaskWebApi.Repository.Dapper
         {
             await using var conn = new MySqlConnection(ConnStr);
             await conn.OpenAsync();
-            await conn.ExecuteAsync("DELETE FROM persons_tbl WHERE PersonId = @a", new {@a = id});
-            await conn.CloseAsync();
-            return true;
+            
+            try
+            {
+                await conn.ExecuteAsync("DELETE FROM persons_tbl WHERE PersonId = @a", new {@a = id});
+                await conn.CloseAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

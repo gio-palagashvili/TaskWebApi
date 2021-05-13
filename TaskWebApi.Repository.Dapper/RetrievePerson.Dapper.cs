@@ -8,8 +8,11 @@ namespace TaskWebApi.Repository.Dapper
 {
     public class RetrievePersonDapper : Connection
     {
+        
         protected static Person GetPerson(string id)
         {
+            var exist = IdExist(id);
+            
             using var conn = new MySqlConnection(ConnStr);
             var reader = conn.ExecuteReader("SELECT * FROM persons_tbl WHERE PersonId = @a", new { @a = id });
             var person = new Person();
@@ -26,8 +29,7 @@ namespace TaskWebApi.Repository.Dapper
                 person.City = reader.GetValue(7).ToString();
                 person.ImageLocation = reader.GetValue(8).ToString();
             }
-
-            return person;
+            return (exist) ? person : null;
         }
     }
 }

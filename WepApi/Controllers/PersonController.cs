@@ -1,9 +1,9 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Mvc;
-using MySql.Data.MySqlClient;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TaskWeb.Repository;
 using TaskWebApi;
+
+#pragma warning disable 1998
 
 namespace WepApi.Controllers
 {
@@ -12,14 +12,22 @@ namespace WepApi.Controllers
     public class PersonController : ControllerBase
     {
         [HttpGet("{id}")]
-        #pragma warning disable 1998
-        public async Task<Person> GetPerson(string id) => new GetPersonRep().GetPersonRepp(id);
+        public async Task<IActionResult> GetPerson(string id)
+        {
+            var person = new GetPersonRep().GetPersonRepp(id);
+            return (new GetPersonRep().GetPersonRepp(id) is null) ? NotFound("Id was not found in the database") : Ok(new GetPersonRep().GetPersonRepp(id));
+        }
 
         [HttpDelete("{id}")]
-        public async Task<string> DeletePerson(string id)
+        public async Task<IActionResult> DeletePerson(string id)
         {
             _ = new DeletePersonRep(id);
-            return "Successful";
+            return Ok();
         }
+        [HttpPost]
+        public async Task<IActionResult> InsertPerson([FromBody]Person person)
+        {
+            return Ok("Person Inserted");
+        } 
     }
 }

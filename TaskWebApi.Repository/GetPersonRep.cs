@@ -7,7 +7,8 @@ namespace TaskWeb.Repository
     {
         public Person GetPersonRepp(string id)
         { 
-            Person person = GetPerson(id);
+            var person = GetPerson(id);
+            
             return person;
         }
     }
