@@ -28,10 +28,26 @@ namespace WepApi.Controllers
         {
             return DeletePersonRep.Delete(id).Result ? NotFound($"Person ${id} was not found") : Ok($"Person ${id} was deleted");
         }
+        
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertPerson([FromBody]Person person)
         {
-            return Ok("Person Inserted");
+            var result = PersonVerify.Verify(person);
+            if (result == "200") new InsertPersonRep(person);
+
+            return result switch
+            {
+                "fname" => BadRequest("First Name was not in the correct format(no numbers and more than 2 chars)"),
+                "lname" => BadRequest("Last Name was not in the correct format"),
+                "city" => BadRequest("city can not contain numbers"),
+                "private" => BadRequest("private number must be 11 digits"),
+                "gender" => BadRequest("must be either 0 or 1"),
+                "phone" => BadRequest("phone number was not in the correct format"),
+                "date" => BadRequest("date was not in the correct format"),
+                _ => Ok("person inserted")
+            };
         } 
     }
 }

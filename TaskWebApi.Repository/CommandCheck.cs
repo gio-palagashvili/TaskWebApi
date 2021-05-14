@@ -4,6 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TaskWebApi;
+using TaskWebApi.Repository.Dapper;
+
 // ReSharper disable LoopVariableIsNeverChangedInsideLoop
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
@@ -11,7 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace TaskWeb.Repository
 {
-    public static class CommandCheck 
+    public class CommandCheck : Connection
     {
         public static string Fname(string value)
         {
@@ -138,5 +141,11 @@ namespace TaskWeb.Repository
             
             return Path.GetRelativePath(Directory.GetCurrentDirectory(),path2);
         }
+        private static string GenerateRandomId()
+        {
+            var random = new Random();
+            return random.Next(10000,1000000000).ToString();
+        }
+        private string RandomId { get; set; }
     }
 }

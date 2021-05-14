@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace TaskWebApi.Repository.Dapper
@@ -24,7 +25,7 @@ namespace TaskWebApi.Repository.Dapper
                 person.Lname = reader.GetValue(2).ToString();
                 person.Gender = reader.GetValue(3).ToString();
                 person.PrivateNumber = reader.GetValue(4).ToString();
-                person.Date = reader.GetValue(5).ToString();
+                person.Date = Convert.ToDateTime(reader.GetValue(5).ToString()).ToString(CultureInfo.InvariantCulture);
                 person.PhoneNumber = reader.GetValue(6).ToString();
                 person.City = reader.GetValue(7).ToString();
                 person.ImageLocation = reader.GetValue(8).ToString();

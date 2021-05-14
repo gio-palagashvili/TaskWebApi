@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskWebApi.Application", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WepApi", "WepApi\WepApi.csproj", "{B1EFBFB4-BF0D-437B-AA7B-11FEDB9F1EEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseSeeding", "DatabaseSeeding\DatabaseSeeding.csproj", "{FEAA17C1-46A9-4BA2-BB3C-C284E11C4479}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{B1EFBFB4-BF0D-437B-AA7B-11FEDB9F1EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1EFBFB4-BF0D-437B-AA7B-11FEDB9F1EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1EFBFB4-BF0D-437B-AA7B-11FEDB9F1EEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEAA17C1-46A9-4BA2-BB3C-C284E11C4479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEAA17C1-46A9-4BA2-BB3C-C284E11C4479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEAA17C1-46A9-4BA2-BB3C-C284E11C4479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEAA17C1-46A9-4BA2-BB3C-C284E11C4479}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +58,7 @@ Global
 		{5210E788-7482-4800-8953-0BBD6271BA2A} = {91A93987-D9A4-4C31-8C76-25DA648B4824}
 		{592F0B46-7F0C-4D4B-BD11-D8BEE1B95640} = {2B3085C6-CE26-40E4-BF28-6111B528FA95}
 		{B1EFBFB4-BF0D-437B-AA7B-11FEDB9F1EEB} = {93A97958-3E7F-416E-BDF8-F6C668FA29B2}
+		{FEAA17C1-46A9-4BA2-BB3C-C284E11C4479} = {726F2A0B-ACC0-49ED-998C-C92758B92D5E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {69FB22A2-21C2-4C15-80BD-2586DA55E091}

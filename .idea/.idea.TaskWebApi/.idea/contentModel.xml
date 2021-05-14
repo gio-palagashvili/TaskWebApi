@@ -6,6 +6,19 @@
     <e p="C:\Users\Gio\AppData\Roaming\JetBrains\Rider2020.3\consoles\db" t="IncludeRecursive" />
     <e p="C:\Users\Gio\AppData\Roaming\JetBrains\Rider2020.3\extensions" t="IncludeRecursive" />
     <e p="C:\Users\Gio\Documents\c#\TaskWebApi" t="IncludeFlat">
+      <e p="DatabaseSeeding" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CreateRandomUser.cs" t="Include" />
+        <e p="DatabaseSeeding.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="DatabaseSeeding.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
       <e p="packages" t="ExcludeRecursive" />
       <e p="TaskWebApi.Application" t="Include" />
       <e p="TaskWebApi.Common" t="IncludeRecursive">
@@ -37,6 +50,7 @@
             </e>
           </e>
         </e>
+        <e p="PersonVerify.cs" t="Include" />
         <e p="Program.cs" t="Include" />
         <e p="TaskWebApi.Repository.csproj" t="IncludeRecursive" />
       </e>

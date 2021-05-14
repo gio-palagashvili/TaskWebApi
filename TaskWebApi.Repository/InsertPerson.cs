@@ -8,7 +8,7 @@ using TaskWebApi.Repository.Dapper;
 
 namespace TaskWeb.Repository
 {
-    public class InsertPerson : InsertPersonDapper
+    public class InsertPersonRep : InsertPersonDapper
     {
         private static string GenerateRandomId()
         {
@@ -24,7 +24,7 @@ namespace TaskWeb.Repository
             return (persons.Count != 0);
         }
         private string RandomId { get; set; }
-        public InsertPerson()
+        public InsertPersonRep(Person person)
         {
             RandomId = GenerateRandomId();
             var check = IdExist();
@@ -33,43 +33,9 @@ namespace TaskWeb.Repository
                 RandomId = GenerateRandomId();
                 check = IdExist();
             }
-            var localPerson = new Person();
-            
-            Console.WriteLine("image location");
-            localPerson.ImageLocation = Console.ReadLine();
-            localPerson.ImageLocation = CommandCheck.FileLocation(localPerson.ImageLocation,RandomId);
-            
-            Console.WriteLine("Date of birth (yyyy/mm/dd) must be over or equal to 18");
-            localPerson.Date = Console.ReadLine();
-            localPerson.Date = CommandCheck.Date(DateTime.Parse(localPerson.Date!));
-            if (localPerson.Date == "underage") Environment.Exit(1);
-            
-            Console.WriteLine("First name");
-            localPerson.Fname = Console.ReadLine();
-            localPerson.Fname = CommandCheck.Fname(localPerson.Fname);
-
-            Console.WriteLine("Last name");
-            localPerson.Lname = Console.ReadLine();
-            localPerson.Lname = CommandCheck.Lname(localPerson.Lname);
-
-            Console.WriteLine("city");
-            localPerson.City = Console.ReadLine();
-            localPerson.City = CommandCheck.City(localPerson.City);
-
-            Console.WriteLine("gender (1 or 0 male and female)");
-            localPerson.Gender = Console.ReadLine();
-            localPerson.Gender = CommandCheck.Gender(localPerson.Gender);
-            
-            Console.WriteLine("private number");
-            localPerson.PrivateNumber = Console.ReadLine();
-            localPerson.PrivateNumber = CommandCheck.PrivateNumber(localPerson.PrivateNumber);
-            
-            Console.WriteLine("phone number");
-            localPerson.PhoneNumber = Console.ReadLine();
-            localPerson.PhoneNumber = CommandCheck.PhoneNumber(localPerson.PhoneNumber);
-
-            Insert(new Person() {PersonId = RandomId, City = localPerson.City, Fname = localPerson.Fname, Lname = localPerson.Lname, PhoneNumber = localPerson.PhoneNumber,
-                PrivateNumber = localPerson.PrivateNumber,Gender = localPerson.Gender,ImageLocation = localPerson.ImageLocation, Date = localPerson.Date});
+   
+            Insert(new Person() {PersonId = RandomId, City = person.City, Fname = person.Fname, Lname = person.Lname, PhoneNumber = person.PhoneNumber,
+                PrivateNumber = person.PrivateNumber,Gender = person.Gender,ImageLocation = person.ImageLocation, Date = person.Date});
         }
     }
 }
