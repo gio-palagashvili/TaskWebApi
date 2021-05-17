@@ -1,14 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.RegularExpressions;
 using TaskWebApi;
+using TaskWebApi.Repository.Dapper;
 
 namespace TaskWeb.Repository
 {
-    public static class PersonVerify
+    public class PersonVerify : Connection
     {
-        private static bool Fname(string value)
+        public enum ErrorList
+        {
+            Ok = 0,
+            NamesDupe = 1,
+            PrivateNumberDupe = 2,
+            PhoneNumberDupe = 3,
+            NameContainsNumbers = 4,
+            CityContainsNumbers = 5,
+            BinaryGender = 6,
+            InvalidPhone = 7,
+            UnderAged = 8,
+            FirstNameLength = 9,
+            LastNameLength = 10,
+            PhoneNumberLength = 11,
+            PrivateNumberLength = 12,
+            InvalidFormatDate = 13,
+            PrivateNumberLetters = 14,
+        }
+        private static Enum Fname(string value)
         {
             // const string gerogian = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ";
             // const string english = "abcdefghijklmnopqrstuvxyz";
@@ -20,12 +37,15 @@ namespace TaskWeb.Repository
             // var hasGeorgianLetters = value.ToCharArray().Any(x => gerogian.Contains(x));
             if (value.Length < 2 || value.Length > 50)
             {
-                return false;
+                return ErrorList.FirstNameLength;
             }
-            return !Regex.IsMatch(value, "\\d");
+            if (Regex.IsMatch(value, "\\d"))
+            {
+                return ErrorList.NameContainsNumbers;
+            }
+            return FnameExists(value).Result ? ErrorList.NamesDupe : ErrorList.Ok;
         }
-
-        private static bool Lname(string value)
+        private static Enum Lname(string value)
         {
             // const string english = "abcdefghijklmnopqrstuvxyz";
             // const string englishUpper = "ABCDEFGHIJKLMNOPQRSTUVXYZ";
@@ -36,34 +56,39 @@ namespace TaskWeb.Repository
             // var hasGeorgianLetters = value.ToCharArray().Any(x => gerogian.Contains(x));
             if (value.Length < 2 || value.Length > 50)
             {
-                return false;
+                return ErrorList.LastNameLength;
             }
-            return !Regex.IsMatch(value, "\\d");
-        }
+            if (Regex.IsMatch(value, "\\d"))
+            {
+                return ErrorList.NameContainsNumbers;
+            }
+            return LnameExists(value).Result ? ErrorList.NamesDupe : ErrorList.Ok;
 
-        private static bool City(string value)
+        }
+        private static Enum City(string value)
         {
             var hasNumbers = Regex.IsMatch(value, "\\d");
-            return !hasNumbers;
+            return (hasNumbers) ? ErrorList.CityContainsNumbers : ErrorList.Ok;
         }
-
-        private static bool Gender(string value)
+        private static Enum Gender(string value)
         {
-            return value == "0" || value == "1";
+            return (value == "0" || value == "1") ? ErrorList.Ok : ErrorList.BinaryGender;
         }
-
-        private static bool PrivateNumber(string value)
+        private static Enum PrivateNumber(string value)
         {
-            return value.Length == 11;
+            if (!Regex.IsMatch(value, @"[A-Z][a-z]"))
+            {
+                return ErrorList.PrivateNumberLetters;
+            }
+            
+            return (value.Length == 11) ? ErrorList.Ok : ErrorList.PrivateNumberLength;
         }
-
-        private static bool PhoneNumber(string value)
+        private static Enum PhoneNumber(string value)
         {
             //todo home number
-            return value[0] == '5' || value.Length == 9;
+            return (value[0] == '5' || value.Length == 9) ? ErrorList.Ok : ErrorList.InvalidPhone;
         }
-
-        private static bool Date(DateTime value)
+        private static Enum Date(DateTime value)
         {
             var today = DateTime.Today;
 
@@ -71,66 +96,72 @@ namespace TaskWeb.Repository
             var b = (value.Year * 100 + value.Month) * 100 + value.Day;
             var z = ((a - b) / 10000);
 
-            return z >= 18;
+            return (z >= 18) ? ErrorList.Ok : ErrorList.UnderAged;
         }
-        private static bool VerifyFile(string path, string extension)
+        // private static bool VerifyFile(string path, string extension)
+        // {
+        //     var l = new List<string>() {".jpg", ".png", ".jpeg"};
+        //
+        //     return l.Contains(extension);
+        // }
+        // public static string FileLocation(string value, string name)
+        // {
+        //     var path = $"{value}";
+        //     var path2 = @$"C:\Users\Gio\Documents\c#\TaskWebApi\images\{name}.png";
+        //
+        //     while (!File.Exists(path))
+        //     {
+        //         Console.WriteLine("file does not exist");
+        //         path = Console.ReadLine();
+        //     }
+        //
+        //     var extension = Path.GetExtension(path);
+        //
+        //     while (!VerifyFile(path, extension))
+        //     {
+        //         Console.WriteLine(
+        //             "invalid file extension only jpg, jpeg and png are allowed(change the extension and retype the path below)");
+        //         path = Console.ReadLine();
+        //         extension = Path.GetExtension(path);
+        //     }
+        //
+        //     File.Copy(path, path2);
+        //
+        //     return Path.GetRelativePath(Directory.GetCurrentDirectory(), path2);
+        // }
+        public static Enum Verify(Person person)
         {
-            var l = new List<string>() {".jpg", ".png", ".jpeg"};
-
-            return l.Contains(extension);
-        }
-
-        public static string FileLocation(string value, string name)
-        {
-            var path = $"{value}";
-            var path2 = @$"C:\Users\Gio\Documents\c#\TaskWebApi\images\{name}.png";
-
-            while (!File.Exists(path))
-            {
-                Console.WriteLine("file does not exist");
-                path = Console.ReadLine();
-            }
-
-            var extension = Path.GetExtension(path);
-
-            while (!VerifyFile(path, extension))
-            {
-                Console.WriteLine(
-                    "invalid file extension only jpg, jpeg and png are allowed(change the extension and retype the path below)");
-                path = Console.ReadLine();
-                extension = Path.GetExtension(path);
-            }
-
-            File.Copy(path, path2);
-
-            return Path.GetRelativePath(Directory.GetCurrentDirectory(), path2);
-        }
-
-        public static string Verify(Person person)
-        {
-            //todo same names arent allowed
             var validFname = Fname(person.Fname);
-            if (!validFname) return "fname";
+            if (Convert.ToInt32(validFname) == 1) return ErrorList.NamesDupe;
+            if (Convert.ToInt32(validFname) == 2) return ErrorList.FirstNameLength;
             
-            var validLname = Fname(person.Lname);
-            if (!validLname) return "lname";
+            var validLname = Lname(person.Lname);
+            if (Convert.ToInt32(validLname) == 4) return ErrorList.NamesDupe;
+            if (Convert.ToInt32(validLname) == 2) return ErrorList.LastNameLength;
             
             var validCity = City(person.City);
-            if (!validCity) return "city";
+            if (Convert.ToInt32(validCity) == 1) return ErrorList.CityContainsNumbers;
             
             var validGender= Gender(person.Gender);
-            if (!validGender) return "gender";
+            if (Convert.ToInt32(validGender) == 5) return ErrorList.BinaryGender;
+            
             //same private numbers arent allowed
             var validPrivate = PrivateNumber(person.PrivateNumber);
-            if (!validPrivate) return "private";
+            if (Convert.ToInt32(validPrivate) == 12) return ErrorList.PrivateNumberLength;
+            if (Convert.ToInt32(validPrivate) == 2) return ErrorList.PrivateNumberDupe;
+
             //todo office numbers
             var validPhone = PhoneNumber(person.PhoneNumber);
-            if (!validPhone) return "phone";
-            
+            if (Convert.ToInt32(validPhone) == 7) return ErrorList.InvalidPhone;
+            if (Convert.ToInt32(validPhone) == 11) return ErrorList.PhoneNumberLength;
+
             var validDate =  Date(Convert.ToDateTime(person.Date));
-            if (!validDate) return "date";
-            
-            return "200";
+            if (Convert.ToInt32(validDate) == 8) return ErrorList.UnderAged;
+            return Convert.ToInt32(validDate) == 13 ? ErrorList.InvalidFormatDate : ErrorList.Ok;
         }
+    }
+
+    internal class PersonVerifyImpl : PersonVerify
+    {
     }
 }

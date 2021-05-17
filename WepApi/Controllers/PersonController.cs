@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +18,7 @@ namespace WepApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Person>> GetPerson(string id)
         {
-            var person = new GetPersonRep().GetPersonRepp(id);
+            _ = new GetPersonRep().GetPersonRepp(id);
             return (new GetPersonRep().GetPersonRepp(id) is null) ? NotFound("Id was not found in the database") : Ok(new GetPersonRep().GetPersonRepp(id));
         }
         [HttpDelete("{id}")]
@@ -28,24 +28,25 @@ namespace WepApi.Controllers
         {
             return DeletePersonRep.Delete(id).Result ? NotFound($"Person ${id} was not found") : Ok($"Person ${id} was deleted");
         }
-        
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertPerson([FromBody]Person person)
         {
             var result = PersonVerify.Verify(person);
-            if (result == "200") new InsertPersonRep(person);
+            if (Convert.ToInt32(result) == 0) _ = new InsertPersonRep(person);
 
             return result switch
             {
-                "fname" => BadRequest("First Name was not in the correct format(no numbers and more than 2 chars)"),
-                "lname" => BadRequest("Last Name was not in the correct format"),
-                "city" => BadRequest("city can not contain numbers"),
-                "private" => BadRequest("private number must be 11 digits"),
-                "gender" => BadRequest("must be either 0 or 1"),
-                "phone" => BadRequest("phone number was not in the correct format"),
-                "date" => BadRequest("date was not in the correct format"),
+                PersonVerify.ErrorList.FirstNameLength => BadRequest("First Name was not in the correct format(no numbers and more than 2 chars)"),
+                PersonVerify.ErrorList.NamesDupe => BadRequest("Duplicate Name"),
+                PersonVerify.ErrorList.LastNameLength => BadRequest("Last Name was not in the correct format"),
+                PersonVerify.ErrorList.CityContainsNumbers => BadRequest("city can not contain numbers"),
+                PersonVerify.ErrorList.PrivateNumberLength => BadRequest("private number must be 11 digits"),
+                PersonVerify.ErrorList.BinaryGender => BadRequest("must be either 0 or 1"),
+                PersonVerify.ErrorList.PhoneNumberDupe => BadRequest("phone number dupe"),
+                PersonVerify.ErrorList.InvalidFormatDate => BadRequest("date was not in the correct format"),
+                PersonVerify.ErrorList.UnderAged => BadRequest("must be over 18"),
                 _ => Ok("person inserted")
             };
         } 

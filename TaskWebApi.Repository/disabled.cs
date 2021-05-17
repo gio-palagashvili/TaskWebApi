@@ -94,8 +94,6 @@ namespace TaskWeb.Repository
         }
         public static string PhoneNumber(string value)
         {
-            //todo home number
-
             while (value[0] != '5' && value.Length != 9)
             {
                 Console.WriteLine("invalid number");
