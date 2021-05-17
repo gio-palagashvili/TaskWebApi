@@ -7,25 +7,7 @@ namespace TaskWeb.Repository
 {
     public class PersonVerify : Connection
     {
-        public enum ErrorList
-        {
-            Ok = 0,
-            NamesDupe = 1,
-            PrivateNumberDupe = 2,
-            PhoneNumberDupe = 3,
-            NameContainsNumbers = 4,
-            CityContainsNumbers = 5,
-            BinaryGender = 6,
-            InvalidPhone = 7,
-            UnderAged = 8,
-            FirstNameLength = 9,
-            LastNameLength = 10,
-            PhoneNumberLength = 11,
-            PrivateNumberLength = 12,
-            InvalidFormatDate = 13,
-            PrivateNumberLetters = 14,
-        }
-        private static Enum Fname(string value)
+        private static ErrorClass Fname(string value)
         {
             // const string gerogian = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ";
             // const string english = "abcdefghijklmnopqrstuvxyz";
@@ -37,15 +19,11 @@ namespace TaskWeb.Repository
             // var hasGeorgianLetters = value.ToCharArray().Any(x => gerogian.Contains(x));
             if (value.Length < 2 || value.Length > 50)
             {
-                return ErrorList.FirstNameLength;
+                return new ErrorClass() { ErrorCode = ErrorList.ERROR_DUPLICATE, Description = "Length Error" };
             }
-            if (Regex.IsMatch(value, "\\d"))
-            {
-                return ErrorList.NameContainsNumbers;
-            }
-            return FnameExists(value).Result ? ErrorList.NamesDupe : ErrorList.Ok;
+            return Regex.IsMatch(value, "\\d") ? new ErrorClass() { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "name contains numbers" } : new ErrorClass { ErrorCode = ErrorList.OK };
         }
-        private static Enum Lname(string value)
+        private static ErrorClass Lname(string value, string value2)
         {
             // const string english = "abcdefghijklmnopqrstuvxyz";
             // const string englishUpper = "ABCDEFGHIJKLMNOPQRSTUVXYZ";
@@ -54,41 +32,43 @@ namespace TaskWeb.Repository
             // var hasEnglishUpper = value.ToCharArray().Any(x => englishUpper.Contains(x));
 
             // var hasGeorgianLetters = value.ToCharArray().Any(x => gerogian.Contains(x));
+            //todo
+
             if (value.Length < 2 || value.Length > 50)
             {
-                return ErrorList.LastNameLength;
+                return new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "Last name length error" };
             }
             if (Regex.IsMatch(value, "\\d"))
             {
-                return ErrorList.NameContainsNumbers;
+                return new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "name contains numbers" };
             }
-            return LnameExists(value).Result ? ErrorList.NamesDupe : ErrorList.Ok;
+            return NameExists(value, value2).Result ? new ErrorClass { ErrorCode = ErrorList.ERROR_DUPLICATE, Description = "name already exists" } : new ErrorClass { ErrorCode = ErrorList.OK };
 
         }
-        private static Enum City(string value)
+        private static ErrorClass City(string value)
         {
             var hasNumbers = Regex.IsMatch(value, "\\d");
-            return (hasNumbers) ? ErrorList.CityContainsNumbers : ErrorList.Ok;
+            return (hasNumbers) ? new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "City Contains Numbers" } : new ErrorClass { ErrorCode = ErrorList.OK };
         }
-        private static Enum Gender(string value)
+        private static ErrorClass Gender(string value)
         {
-            return (value == "0" || value == "1") ? ErrorList.Ok : ErrorList.BinaryGender;
+            return (value == "0" || value == "1") ? new ErrorClass { ErrorCode = ErrorList.OK } : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "Gender must be either 0 or 1" };
         }
-        private static Enum PrivateNumber(string value)
+        private static ErrorClass PrivateNumber(string value)
         {
-            if (!Regex.IsMatch(value, @"[A-Z][a-z]"))
+            if (!Regex.IsMatch(value, @"[A-Za-z]"))
             {
-                return ErrorList.PrivateNumberLetters;
+                return new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "" };
             }
-            
-            return (value.Length == 11) ? ErrorList.Ok : ErrorList.PrivateNumberLength;
+
+            return (value.Length == 11) ? new ErrorClass { ErrorCode = ErrorList.OK } : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "private numbers must be 11 digits" };
         }
-        private static Enum PhoneNumber(string value)
+        private static ErrorClass PhoneNumber(string value)
         {
             //todo home number
-            return (value[0] == '5' || value.Length == 9) ? ErrorList.Ok : ErrorList.InvalidPhone;
+            return (value[0] == '5' || value.Length == 9) ? new ErrorClass { ErrorCode = ErrorList.OK } : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "invalid phone number" };
         }
-        private static Enum Date(DateTime value)
+        private static ErrorClass Date(DateTime value)
         {
             var today = DateTime.Today;
 
@@ -96,7 +76,7 @@ namespace TaskWeb.Repository
             var b = (value.Year * 100 + value.Month) * 100 + value.Day;
             var z = ((a - b) / 10000);
 
-            return (z >= 18) ? ErrorList.Ok : ErrorList.UnderAged;
+            return (z >= 18) ? new ErrorClass { ErrorCode = ErrorList.OK } : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "under aged" };
         }
         // private static bool VerifyFile(string path, string extension)
         // {
@@ -129,38 +109,32 @@ namespace TaskWeb.Repository
         //
         //     return Path.GetRelativePath(Directory.GetCurrentDirectory(), path2);
         // }
-        public static Enum Verify(Person person)
+        public static ErrorClass Verify(Person person)
         {
             var validFname = Fname(person.Fname);
-            if (Convert.ToInt32(validFname) == 1) return ErrorList.NamesDupe;
-            if (Convert.ToInt32(validFname) == 2) return ErrorList.FirstNameLength;
-            
-            var validLname = Lname(person.Lname);
-            if (Convert.ToInt32(validLname) == 4) return ErrorList.NamesDupe;
-            if (Convert.ToInt32(validLname) == 2) return ErrorList.LastNameLength;
-            
+            if (validFname.ErrorCode != ErrorList.OK) return validFname;
+
+            var validLname = Lname(person.Lname, person.Fname);
+            if (validLname.ErrorCode != ErrorList.OK) return validLname;
+
             var validCity = City(person.City);
-            if (Convert.ToInt32(validCity) == 1) return ErrorList.CityContainsNumbers;
-            
-            var validGender= Gender(person.Gender);
-            if (Convert.ToInt32(validGender) == 5) return ErrorList.BinaryGender;
-            
-            //same private numbers arent allowed
+            if (validCity.ErrorCode != ErrorList.OK) return validCity;
+
+            var validGender = Gender(person.Gender);
+            if (validCity.ErrorCode != ErrorList.OK) return validCity;
+
             var validPrivate = PrivateNumber(person.PrivateNumber);
-            if (Convert.ToInt32(validPrivate) == 12) return ErrorList.PrivateNumberLength;
-            if (Convert.ToInt32(validPrivate) == 2) return ErrorList.PrivateNumberDupe;
+            if (validPrivate.ErrorCode != ErrorList.OK) return validPrivate;
 
-            //todo office numbers
             var validPhone = PhoneNumber(person.PhoneNumber);
-            if (Convert.ToInt32(validPhone) == 7) return ErrorList.InvalidPhone;
-            if (Convert.ToInt32(validPhone) == 11) return ErrorList.PhoneNumberLength;
+            if (validPhone.ErrorCode != ErrorList.OK) return validPhone;
 
-            var validDate =  Date(Convert.ToDateTime(person.Date));
-            if (Convert.ToInt32(validDate) == 8) return ErrorList.UnderAged;
-            return Convert.ToInt32(validDate) == 13 ? ErrorList.InvalidFormatDate : ErrorList.Ok;
+            var validDate = Date(Convert.ToDateTime(person.Date));
+            if (validDate.ErrorCode != ErrorList.OK) return validDate;
+
+            return new ErrorClass { ErrorCode = ErrorList.OK, Description = "user inserted" };
         }
     }
-
     internal class PersonVerifyImpl : PersonVerify
     {
     }

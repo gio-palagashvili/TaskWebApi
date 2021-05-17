@@ -19,21 +19,12 @@ namespace TaskWebApi.Repository.Dapper
             return (persons.Count > 0);
         }
 
-        protected static async Task<bool> FnameExists(string name)
+        protected static async Task<bool> NameExists(string lastName, string name)
         {
             await using var conn = new MySqlConnection(ConnStr);
             await conn.OpenAsync();
-            var x = await conn.QueryAsync<Person>("SELECT * FROM persons_tbl WHERE Fname = @a", new {@a = name});
+            var x = await conn.QueryAsync<Person>("SELECT * FROM persons_tbl WHERE Fname = @a AND Lname = @b", new {@a = name, @b = lastName});
             await conn.CloseAsync();
-            return x.Any();
-        }
-        protected static async Task<bool> LnameExists(string name)
-        {
-            await using var conn = new MySqlConnection(ConnStr);
-            await conn.OpenAsync();
-            var x = await conn.QueryAsync<Person>("SELECT * FROM persons_tbl WHERE Lname = @a", new {@a = name});
-            await conn.CloseAsync();
-            
             return x.Any();
         }
     }

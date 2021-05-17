@@ -34,21 +34,9 @@ namespace WepApi.Controllers
         public async Task<IActionResult> InsertPerson([FromBody]Person person)
         {
             var result = PersonVerify.Verify(person);
-            if (Convert.ToInt32(result) == 0) _ = new InsertPersonRep(person);
+            if (result.ErrorCode == ErrorList.OK) _ = new InsertPersonRep(person);
 
-            return result switch
-            {
-                PersonVerify.ErrorList.FirstNameLength => BadRequest("First Name was not in the correct format(no numbers and more than 2 chars)"),
-                PersonVerify.ErrorList.NamesDupe => BadRequest("Duplicate Name"),
-                PersonVerify.ErrorList.LastNameLength => BadRequest("Last Name was not in the correct format"),
-                PersonVerify.ErrorList.CityContainsNumbers => BadRequest("city can not contain numbers"),
-                PersonVerify.ErrorList.PrivateNumberLength => BadRequest("private number must be 11 digits"),
-                PersonVerify.ErrorList.BinaryGender => BadRequest("must be either 0 or 1"),
-                PersonVerify.ErrorList.PhoneNumberDupe => BadRequest("phone number dupe"),
-                PersonVerify.ErrorList.InvalidFormatDate => BadRequest("date was not in the correct format"),
-                PersonVerify.ErrorList.UnderAged => BadRequest("must be over 18"),
-                _ => Ok("person inserted")
-            };
+            return result.ErrorCode == ErrorList.OK ? Ok("User Inserted") : BadRequest(result.Description);
         } 
     }
 }
