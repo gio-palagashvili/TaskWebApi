@@ -1,12 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
+using Dapper;
+using MySql.Data.MySqlClient;
 using TaskWebApi;
 using TaskWebApi.Repository.Dapper;
+// ReSharper disable ClassNeverInstantiated.Global
 
 namespace TaskWeb.Repository
 {
     public class PersonVerify : Connection
     {
+        private static string GenerateRandomId()
+        {
+            var random = new Random();
+            return random.Next(10000, 1000000000).ToString();
+        }
+        private static bool IdExist()
+        {
+            using var conn = new MySqlConnection(ConnStr);
+            conn.Open();
+            const string command = "SELECT * FROM persons_tbl WHERE PersonId = @A";
+            var persons = conn.Query<Person>(command, new { A = RandomId }).ToList();
+            return (persons.Count != 0);
+        }
+        private static string RandomId { get; set; }
         private static ErrorClass Fname(string value)
         {
             // const string gerogian = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ";
@@ -34,7 +54,7 @@ namespace TaskWeb.Repository
             // var hasGeorgianLetters = value.ToCharArray().Any(x => gerogian.Contains(x));
             //todo
 
-            if (value.Length < 2 || value.Length > 50)
+            if (value.Length is < 2 or > 50)
             {
                 return new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "Last name length error" };
             }
@@ -78,39 +98,30 @@ namespace TaskWeb.Repository
 
             return (z >= 18) ? new ErrorClass { ErrorCode = ErrorList.OK } : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "under aged" };
         }
-        // private static bool VerifyFile(string path, string extension)
-        // {
-        //     var l = new List<string>() {".jpg", ".png", ".jpeg"};
-        //
-        //     return l.Contains(extension);
-        // }
-        // public static string FileLocation(string value, string name)
-        // {
-        //     var path = $"{value}";
-        //     var path2 = @$"C:\Users\Gio\Documents\c#\TaskWebApi\images\{name}.png";
-        //
-        //     while (!File.Exists(path))
-        //     {
-        //         Console.WriteLine("file does not exist");
-        //         path = Console.ReadLine();
-        //     }
-        //
-        //     var extension = Path.GetExtension(path);
-        //
-        //     while (!VerifyFile(path, extension))
-        //     {
-        //         Console.WriteLine(
-        //             "invalid file extension only jpg, jpeg and png are allowed(change the extension and retype the path below)");
-        //         path = Console.ReadLine();
-        //         extension = Path.GetExtension(path);
-        //     }
-        //
-        //     File.Copy(path, path2);
-        //
-        //     return Path.GetRelativePath(Directory.GetCurrentDirectory(), path2);
-        // }
+        private static bool VerifyFile(string path)
+        {
+            var l = new List<string>() {".jpg", ".png", ".jpeg"};
+            var extension = Path.GetExtension(path);
+            return l.Contains(extension);
+        }
+        private static ErrorClass GetFile(string value)
+        {
+            var path = $"{value}";
+            return VerifyFile(path)
+                ? new ErrorClass {ErrorCode = ErrorList.OK}
+                : new ErrorClass {ErrorCode = ErrorList.INCORRECT_FORMAT_FILE};
+        }
+        
         public static ErrorClass Verify(Person person)
         {
+            RandomId = GenerateRandomId();
+            var check = IdExist();
+            while (check)
+            {
+                RandomId = GenerateRandomId();
+                check = IdExist();
+            }
+            
             var validFname = Fname(person.Fname);
             if (validFname.ErrorCode != ErrorList.OK) return validFname;
 
@@ -121,7 +132,7 @@ namespace TaskWeb.Repository
             if (validCity.ErrorCode != ErrorList.OK) return validCity;
 
             var validGender = Gender(person.Gender);
-            if (validCity.ErrorCode != ErrorList.OK) return validCity;
+            if (validGender.ErrorCode != ErrorList.OK) return validGender;
 
             var validPrivate = PrivateNumber(person.PrivateNumber);
             if (validPrivate.ErrorCode != ErrorList.OK) return validPrivate;
@@ -132,10 +143,10 @@ namespace TaskWeb.Repository
             var validDate = Date(Convert.ToDateTime(person.Date));
             if (validDate.ErrorCode != ErrorList.OK) return validDate;
 
+            var validFile = GetFile(person.ImageLocation);
+            if (validFile.ErrorCode != ErrorList.OK) return validFile;
+
             return new ErrorClass { ErrorCode = ErrorList.OK, Description = "user inserted" };
         }
-    }
-    internal class PersonVerifyImpl : PersonVerify
-    {
     }
 }

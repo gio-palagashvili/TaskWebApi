@@ -31,12 +31,13 @@ namespace WepApi.Controllers
             return DeletePersonRep.Delete(id).Result ? NotFound($"Person ${id} was not found") : Ok($"Person ${id} was deleted");
         }
         
-        [HttpPost("insert/{person}")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertPerson([FromBody]Person person)
         {
             var result = PersonVerify.Verify(person);
+            
             if (result.ErrorCode == ErrorList.OK) _ = new InsertPersonRep(person);
 
             return result.ErrorCode == ErrorList.OK ? Ok("User Inserted") : BadRequest(result.Description);
@@ -50,5 +51,6 @@ namespace WepApi.Controllers
             var persons = FilterPerson.FilterRep(value).Result;
             return persons.Any() ? Ok(persons) : NotFound();
         }
+        
     }
 }
