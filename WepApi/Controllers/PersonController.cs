@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,7 @@ namespace WepApi.Controllers
             _ = new GetPersonRep().GetPersonRepp(id);
             return (new GetPersonRep().GetPersonRepp(id) is null) ? NotFound("Id was not found in the database") : Ok(new GetPersonRep().GetPersonRepp(id));
         }
+        
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -28,7 +30,8 @@ namespace WepApi.Controllers
         {
             return DeletePersonRep.Delete(id).Result ? NotFound($"Person ${id} was not found") : Ok($"Person ${id} was deleted");
         }
-        [HttpPost]
+        
+        [HttpPost("insert/{person}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertPerson([FromBody]Person person)
@@ -37,6 +40,15 @@ namespace WepApi.Controllers
             if (result.ErrorCode == ErrorList.OK) _ = new InsertPersonRep(person);
 
             return result.ErrorCode == ErrorList.OK ? Ok("User Inserted") : BadRequest(result.Description);
-        } 
+        }
+        
+        [HttpGet("search/{value}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Person>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Filter(string value)
+        {
+            var persons = FilterPerson.FilterRep(value).Result;
+            return persons.Any() ? Ok(persons) : NotFound();
+        }
     }
 }
