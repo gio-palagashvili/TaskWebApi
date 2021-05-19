@@ -29,7 +29,7 @@ namespace WepApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeletePersonRelationsAll(string id)
         {
-            return Ok();
+            return PersonRelationship.DeleteRelationsAll(id).Result.ErrorCode == ErrorList.OK ? Ok("Relations Deleted") : NotFound("User Doesn't have relations");
         }
     }
 }

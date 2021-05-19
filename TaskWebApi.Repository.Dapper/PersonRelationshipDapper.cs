@@ -18,12 +18,18 @@ namespace TaskWebApi.Repository.Dapper
             return (List<PersonRelations>) await conn.QueryAsync<PersonRelations>(sql,new {@a = id});
         }
 
-        public static async Task<bool> DeleteAllRelations(string id)
+        public static async Task<ErrorClass> DeleteAllRelations(string id)
         {
             await using var conn = new MySqlConnection(ConnStr);
             await conn.OpenAsync();
-
-            return true;
+            if (await IdExistAsync(id) == false)
+            {
+                return new ErrorClass
+                    {ErrorCode = ErrorList.ERROR_NON_EXISTENT, Description = "person doesn't have relationships"};
+            }
+            await conn.ExecuteAsync("DELETE FROM relations_tbl WHERE PersonId = @a OR RelationId = @a", new {a = id});
+            
+            return new ErrorClass{ErrorCode = ErrorList.OK, Description = "relations Deleted"};
         }
     }
 }

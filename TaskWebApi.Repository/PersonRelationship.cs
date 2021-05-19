@@ -14,9 +14,8 @@ namespace TaskWeb.Repository
         {
             return await PersonRelationshipDapper.GetRelationDapper(id);
         }
-        public static async Task<bool> DeleteRelationsAll(string id)
+        public static async Task<ErrorClass> DeleteRelationsAll(string id)
         {
-            
             return await PersonRelationshipDapper.DeleteAllRelations(id);
         }
     }
