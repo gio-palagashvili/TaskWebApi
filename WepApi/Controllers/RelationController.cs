@@ -43,5 +43,14 @@ namespace WepApi.Controllers
                 ? Ok("Relation Deleted")
                 : NotFound("relation was not found");
         }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateRelation(SingleRelation relation)
+        {
+            var z = await PersonRelationship.CreateRelation(relation);
+            return z.ErrorCode == ErrorList.OK ? Ok("Relation created") : BadRequest(z.Description);
+        }
     }
 }

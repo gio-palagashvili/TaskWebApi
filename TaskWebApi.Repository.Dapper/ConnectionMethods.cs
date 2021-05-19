@@ -23,7 +23,15 @@ namespace TaskWebApi.Repository.Dapper
         {
             await using var conn = new MySqlConnection(ConnStr);
             await conn.OpenAsync();
+            var persons = (List<PersonRelations>)await conn.QueryAsync<PersonRelations>("SELECT * FROM persons_tbl WHERE PersonId = @A",new {A = id});
+            await conn.CloseAsync();
             
+            return persons.Count > 0;
+        }
+        protected static async Task<bool> IdHasRelation(string id)
+        {
+            await using var conn = new MySqlConnection(ConnStr);
+            await conn.OpenAsync();
             var persons = (List<PersonRelations>)await conn.QueryAsync<PersonRelations>("SELECT * FROM relations_tbl WHERE PersonId = @A OR RelationId = @A",new {A = id});
             await conn.CloseAsync();
             
@@ -42,7 +50,7 @@ namespace TaskWebApi.Repository.Dapper
             await using var conn = new MySqlConnection(ConnStr);
             await conn.OpenAsync();
             
-            var relationsList = (List<PersonRelations>)await conn.QueryAsync<PersonRelations>("SELECT * FROM relations_tbl WHERE PersonId = @a OR RelationId = @b",new {a = relation.PersonId, b = relation.RelationId});
+            var relationsList = (List<PersonRelations>)await conn.QueryAsync<PersonRelations>("SELECT * FROM relations_tbl WHERE PersonId = @a AND RelationId = @b",new {a = relation.PersonId, b = relation.RelationId});
             await conn.CloseAsync();
             
             return relationsList.Any();

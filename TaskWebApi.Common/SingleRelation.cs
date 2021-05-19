@@ -4,5 +4,6 @@
     {
         public string PersonId { get; set; }
         public string RelationId { get; set; }
+        public string RelationType { get; set; }
     }
 }
