@@ -18,5 +18,9 @@ namespace TaskWeb.Repository
         {
             return await PersonRelationshipDapper.DeleteAllRelations(id);
         }
+        public static async Task<ErrorClass> DeleteRelation(SingleRelation relation)
+        {
+            return await PersonRelationshipDapper.DeleteRelation(relation);
+        }
     }
 }

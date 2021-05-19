@@ -37,5 +37,15 @@ namespace TaskWebApi.Repository.Dapper
             await conn.CloseAsync();
             return x.Any();
         }
+        protected static async Task<bool> RelationExists(SingleRelation relation)
+        {
+            await using var conn = new MySqlConnection(ConnStr);
+            await conn.OpenAsync();
+            
+            var relationsList = (List<PersonRelations>)await conn.QueryAsync<PersonRelations>("SELECT * FROM relations_tbl WHERE PersonId = @a OR RelationId = @b",new {a = relation.PersonId, b = relation.RelationId});
+            await conn.CloseAsync();
+            
+            return relationsList.Any();
+        } 
     }
 }
