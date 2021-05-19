@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Bcpg;
 using TaskWeb.Repository;
 using TaskWebApi;
 // ReSharper disable CA1822
@@ -16,8 +14,8 @@ namespace WepApi.Controllers
     public class RelationController : Controller
     {
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<PersonRelations>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(200, Type = typeof(List<PersonRelations>))]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetPersonRelations(string id)
         {
             var relations = await PersonRelationship.GetRelations(id);
@@ -25,8 +23,8 @@ namespace WepApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeletePersonRelationsAll(string id)
         {
             return PersonRelationship.DeleteRelationsAll(id).Result.ErrorCode == ErrorList.OK 
@@ -35,8 +33,8 @@ namespace WepApi.Controllers
         }
 
         [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteSingleRelation([FromBody]SingleRelation relation)
         {
             return PersonRelationship.DeleteRelation(relation).Result.ErrorCode == ErrorList.OK
@@ -45,8 +43,8 @@ namespace WepApi.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> CreateRelation(SingleRelation relation)
         {
             var z = await PersonRelationship.CreateRelation(relation);
