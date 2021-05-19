@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Bcpg;
 
 namespace TaskWebApi.Repository.Dapper
 {
@@ -19,6 +20,17 @@ namespace TaskWebApi.Repository.Dapper
             return (persons.Count > 0);
         }
 
+        protected static async Task<bool> IdExistAsync(string id)
+        {
+            await using var conn = new MySqlConnection(ConnStr);
+            await conn.OpenAsync();
+            
+            const string command = "SELECT * FROM relations_tbl WHERE PersonId = @A OR RelationId = @A";
+            var persons = (List<PersonRelations>)await conn.QueryAsync<PersonRelations>("SELECT * FROM relations_tbl WHERE PersonId = @A OR RelationId = @A",new {A = id});
+            await conn.CloseAsync();
+            
+            return persons.Count > 0;
+        }
         protected static async Task<bool> NameExists(string lastName, string name)
         {
             await using var conn = new MySqlConnection(ConnStr);
