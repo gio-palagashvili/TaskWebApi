@@ -16,7 +16,7 @@ namespace WepApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200, Type = typeof(List<PersonRelations>))]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> GetPersonRelations(string id)
+        public async Task<ActionResult<List<PersonRelations>>> GetPersonRelations(string id)
         {
             var relations = await PersonRelationship.GetRelations(id);
             return relations.Count > 0 ? Ok(relations) : NotFound("user relationship was not found");
