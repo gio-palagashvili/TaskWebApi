@@ -19,7 +19,9 @@ namespace WepApi.Controllers
         public async Task<ActionResult<List<PersonRelations>>> GetPersonRelations(string id)
         {
             var relations = await PersonRelationship.GetRelations(id);
-            return relations.Count > 0 ? Ok(relations) : NotFound("user relationship was not found");
+            return relations.Count > 0 
+                ? Ok(relations) 
+                : NotFound("user relationship was not found");
         }
 
         [HttpDelete("{id}")]
@@ -48,7 +50,9 @@ namespace WepApi.Controllers
         public async Task<IActionResult> CreateRelation(SingleRelation relation)
         {
             var z = await PersonRelationship.CreateRelation(relation);
-            return z.ErrorCode == ErrorList.OK ? Ok("Relation created") : BadRequest(z.Description);
+            return z.ErrorCode == ErrorList.OK 
+                ? Ok("Relation created") 
+                : BadRequest(z.Description);
         }
     }
 }
