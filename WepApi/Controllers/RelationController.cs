@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TaskWeb.Repository;
 using TaskWebApi;
@@ -53,6 +54,15 @@ namespace WepApi.Controllers
             return z.ErrorCode == ErrorList.OK 
                 ? Ok("Relation created") 
                 : BadRequest(z.Description);
+        }
+
+        [HttpPost("/RelationReport/{id}/{type}")]
+        [ProducesResponseType(200, Type = typeof(List<PersonRelations>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<PersonRelations>>> RelationReport(string id, string type)
+        {
+            var z = await PersonRelationship.RelationReportRep(id, type);
+            return z.Count > 0 ? Ok(z) : NotFound(new ErrorClass{ErrorCode = ErrorList.ERROR_NON_EXISTENT,Description = $"no relation was found error : {ErrorList.ERROR_NON_EXISTENT}"});
         }
     }
 }

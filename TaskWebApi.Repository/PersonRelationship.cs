@@ -26,5 +26,10 @@ namespace TaskWeb.Repository
         {
             return await PersonRelationshipDapper.CreateRelation(relation);
         }
+
+        public static async Task<List<PersonRelations>> RelationReportRep(string id, string type)
+        {
+            return await PersonRelationshipDapper.RelationReportDapper(id, type);
+        }
     }
 }

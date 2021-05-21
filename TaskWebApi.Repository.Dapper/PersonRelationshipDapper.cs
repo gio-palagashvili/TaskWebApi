@@ -83,5 +83,14 @@ namespace TaskWebApi.Repository.Dapper
 
             return new ErrorClass {ErrorCode = ErrorList.OK, Description = "relation created"};
         }
+
+        public static async Task<List<PersonRelations>> RelationReportDapper(string id, string type)
+        {
+            await using var conn = new MySqlConnection(ConnStr);
+            await conn.OpenAsync();
+            const string sql = "SELECT * FROM relations_tbl WHERE relationType = @b AND PersonId = @a OR RelationId = @a ";
+            var z = await conn.QueryAsync<PersonRelations>(sql, new {a = id, b = type});
+            return (List<PersonRelations>) z;
+        }
     }
 }

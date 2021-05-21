@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TaskWebApi.Common\TaskWebApi.Common.csproj" />
-      <ProjectReference Include="..\WebApplication2\WebApplication2.csproj" />
     </ItemGroup>
 
 </Project>
