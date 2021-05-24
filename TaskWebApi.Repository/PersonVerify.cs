@@ -13,19 +13,6 @@ namespace TaskWeb.Repository
 {
     public class PersonVerify : Connection
     {
-        private static string GenerateRandomId()
-        {
-            var random = new Random();
-            return random.Next(10000, 1000000000).ToString();
-        }
-        private static bool IdExist()
-        {
-            using var conn = new MySqlConnection(ConnStr);
-            conn.Open();
-            const string command = "SELECT * FROM persons_tbl WHERE PersonId = @A";
-            var persons = conn.Query<Person>(command, new { A = RandomId }).ToList();
-            return (persons.Count != 0);
-        }
         private static string RandomId { get; set; }
         private static ErrorClass Fname(string value)
         {
@@ -114,13 +101,7 @@ namespace TaskWeb.Repository
         
         public static ErrorClass Verify(Person person)
         {
-            RandomId = GenerateRandomId();
-            var check = IdExist();
-            while (check)
-            {
-                RandomId = GenerateRandomId();
-                check = IdExist();
-            }
+         
             
             var validFname = Fname(person.Fname);
             if (validFname.ErrorCode != ErrorList.OK) return validFname;

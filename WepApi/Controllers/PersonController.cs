@@ -19,8 +19,7 @@ namespace WepApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Person>> GetPerson(string id)
         {
-            _ = new GetPersonRep().GetPersonRepp(id);
-            return (new GetPersonRep().GetPersonRepp(id) is null) ? NotFound("Id was not found in the database") : Ok(new GetPersonRep().GetPersonRepp(id));
+            return ManagePerson.IdExistAsyncRoute(id).Result ? Ok(ManagePerson.GetPerson(id).Result) : BadRequest("person with that id doesn't exist");
         }
         
         [HttpDelete("{id}")]
@@ -28,7 +27,7 @@ namespace WepApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeletePerson(string id)
         {
-            return DeletePersonRep.Delete(id).Result ? NotFound($"Person ${id} was not found") : Ok($"Person ${id} was deleted");
+            return ManagePerson.DeletePerson(id).Result ? NotFound($"Person ${id} was not found") : Ok($"Person ${id} was deleted");
         }
         
         [HttpPost]
@@ -38,7 +37,7 @@ namespace WepApi.Controllers
         {
             var result = PersonVerify.Verify(person);
             
-            if (result.ErrorCode == ErrorList.OK) _ = new InsertPersonRep(person);
+            if (result.ErrorCode == ErrorList.OK) _ = ManagePerson.InsertPersonRep(person);
 
             return result.ErrorCode == ErrorList.OK ? Ok("User Inserted") : BadRequest(result.Description);
         }
@@ -48,9 +47,23 @@ namespace WepApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Filter(string value)
         {
-            var persons = FilterPerson.FilterRep(value).Result;
+            var persons = ManagePerson.FilterPerson(value).Result;
             return persons.Any() ? Ok(persons) : NotFound();
         }
-        
+
+        [HttpPut("update/{Person}>")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> UpdatePerson(Person person)
+        {
+            return Ok(ManagePerson.UpdatePerson(person).Result);
+        }
+        [HttpPut("update/{id}/{type}>")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> UpdatePersonParameter(string type, string id)
+        {
+            return Accepted();
+        }
     }
 }
