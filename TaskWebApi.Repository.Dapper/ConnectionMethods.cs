@@ -41,7 +41,7 @@ namespace TaskWebApi.Repository.Dapper
         {
             await using var conn = new MySqlConnection(ConnStr);
             await conn.OpenAsync();
-            var x = await conn.QueryAsync<Person>("SELECT * FROM persons_tbl WHERE Fname = @a AND Lname = @b", new {@a = name, @b = lastName});
+            var x = await conn.QueryAsync<Person>("SELECT * FROM persons_tbl WHERE Fname = @a AND Lname = @b", new {a = name, b = lastName});
             await conn.CloseAsync();
             return x.Any();
         }

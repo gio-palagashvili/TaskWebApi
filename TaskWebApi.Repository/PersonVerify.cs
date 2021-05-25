@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Dapper;
 using MySql.Data.MySqlClient;
 using TaskWebApi;
@@ -13,20 +14,6 @@ namespace TaskWeb.Repository
 {
     public class PersonVerify : Connection
     {
-        private static string GenerateRandomId()
-        {
-            var random = new Random();
-            return random.Next(10000, 1000000000).ToString();
-        }
-        private static bool IdExist()
-        {
-            using var conn = new MySqlConnection(ConnStr);
-            conn.Open();
-            const string command = "SELECT * FROM persons_tbl WHERE PersonId = @A";
-            var persons = conn.Query<Person>(command, new { A = RandomId }).ToList();
-            return (persons.Count != 0);
-        }
-        private static string RandomId { get; set; }
         private static ErrorClass Fname(string value)
         {
             // const string gerogian = "აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ";
@@ -37,7 +24,8 @@ namespace TaskWeb.Repository
             // var hasEnglishUpper = value.ToCharArray().Any(x => englishUpper.Contains(x));
 
             // var hasGeorgianLetters = value.ToCharArray().Any(x => gerogian.Contains(x));
-            if (value.Length < 2 || value.Length > 50)
+            
+            if (value.Length is < 2 or > 50)
             {
                 return new ErrorClass() { ErrorCode = ErrorList.ERROR_DUPLICATE, Description = "Length Error" };
             }
@@ -72,23 +60,26 @@ namespace TaskWeb.Repository
         }
         private static ErrorClass Gender(string value)
         {
-            return (value == "0" || value == "1") ? new ErrorClass { ErrorCode = ErrorList.OK } : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "Gender must be either 0 or 1" };
+            return (value is "0" or "1") ? new ErrorClass { ErrorCode = ErrorList.OK } : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "Gender must be either 0 or 1" };
         }
-        private static ErrorClass PrivateNumber(string value)
+        public static ErrorClass PrivateNumber(string value)
         {
             if (!Regex.IsMatch(value, @"[A-Za-z]"))
             {
                 return new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "" };
             }
 
-            return (value.Length == 11) ? new ErrorClass { ErrorCode = ErrorList.OK } : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "private numbers must be 11 digits" };
+            return (value.Length == 11) 
+                ? new ErrorClass { ErrorCode = ErrorList.OK } 
+                : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "private numbers must be 11 digits" };
         }
         private static ErrorClass PhoneNumber(string value)
         {
             //todo home number
             return (value[0] == '5' || value.Length == 9) ? new ErrorClass { ErrorCode = ErrorList.OK } : new ErrorClass { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "invalid phone number" };
         }
-        private static ErrorClass Date(DateTime value)
+
+        public static ErrorClass Date(DateTime value)
         {
             var today = DateTime.Today;
 
@@ -114,14 +105,6 @@ namespace TaskWeb.Repository
         
         public static ErrorClass Verify(Person person)
         {
-            RandomId = GenerateRandomId();
-            var check = IdExist();
-            while (check)
-            {
-                RandomId = GenerateRandomId();
-                check = IdExist();
-            }
-            
             var validFname = Fname(person.Fname);
             if (validFname.ErrorCode != ErrorList.OK) return validFname;
 

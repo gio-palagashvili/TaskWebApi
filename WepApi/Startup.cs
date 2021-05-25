@@ -10,11 +10,15 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using WepApi.Middlewares;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace WepApi
 {
@@ -25,10 +29,19 @@ namespace WepApi
             Configuration = configuration;
         }
         public IConfiguration Configuration { get; }
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<UnhandledMiddleWare>();
+            services.Configure<RequestLocalizationOptions>(
+                opt =>
+                {
+                    var k = new List<CultureInfo>
+                    {
+                        new CultureInfo("en"),
+                        new CultureInfo("ge")
+                    };
+                    opt.DefaultRequestCulture = new RequestCulture("en");
+                }
+            );
             
             services.AddControllers();  
             services.AddSwaggerGen(c =>
@@ -40,7 +53,9 @@ namespace WepApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<RequestLoggingMiddleware>();
-
+            app.UseMiddleware<ReturnLanguageMiddleware>();
+            // app.UseRequestLocalization(new RequestLocalizationOptions().SetDefaultCulture("en").AddSupportedCultures("ge"));
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
