@@ -71,20 +71,27 @@ namespace TaskWebApi.Repository.Dapper
             
             return (List<Person>) z;
         }
-
-        public static async Task<bool> UpdatePerson(Person person)
+        // public static async Task<bool> UpdatePerson(Person person)
+        // {
+        //     await using var conn = new MySqlConnection(ConnStr);
+        //     await conn.OpenAsync();
+        //     const string sql = "UPDATE `persons_tbl` SET fname = @b,lname=@c, PhoneNumber=@d, Image=@e,PrivateNumber = @f,Date=@g,Gender=@h WHERE PersonId = @a";
+        //     await conn.ExecuteAsync(sql, new
+        //     {
+        //         a = person.PersonId, b = person.Fname, c = person.Lname, d = person.PhoneNumber, e = person.ImageLocation,
+        //         f = person.PrivateNumber, g = person.Date, h = person.Gender
+        //     });
+        //     await conn.CloseAsync();
+        //
+        //     return true;
+        // }
+        public static async Task<ErrorClass> UpdatePersonSingle(string sql)
         {
             await using var conn = new MySqlConnection(ConnStr);
             await conn.OpenAsync();
-            const string sql = "UPDATE `persons_tbl` SET fname = @b,lname=@c, PhoneNumber=@d, Image=@e,PrivateNumber = @f,Date=@g,Gender=@h WHERE PersonId = @a";
-            await conn.ExecuteAsync(sql, new
-            {
-                a = person.PersonId, b = person.Fname, c = person.Lname, d = person.PhoneNumber, e = person.ImageLocation,
-                f = person.PrivateNumber, g = person.Date, h = person.Gender
-            });
-            await conn.CloseAsync();
-
-            return true;
+            await conn.ExecuteAsync(sql);
+            
+            return new ErrorClass{ErrorCode = ErrorList.OK, Description = $"{sql}"};
         }
     }
 }

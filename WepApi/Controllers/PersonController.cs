@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -48,22 +49,15 @@ namespace WepApi.Controllers
         public async Task<IActionResult> Filter(string value)
         {
             var persons = ManagePerson.FilterPerson(value).Result;
-            return persons.Any() ? Ok(persons) : NotFound();
+            return persons.Any() ? Ok(persons) : NotFound("No results");
         }
-
-        [HttpPut("update/{Person}>")]
+        
+        [HttpPut("update/UpdateClass>")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> UpdatePerson(Person person)
+        public async Task<IActionResult> UpdatePersonParameter(UpdateClass update)
         {
-            return Ok(ManagePerson.UpdatePerson(person).Result);
-        }
-        [HttpPut("update/{id}/{type}>")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        public async Task<IActionResult> UpdatePersonParameter(string type, string id)
-        {
-            return Accepted();
+            return Ok(await ManagePerson.UpdatePerson(update));
         }
     }
 }

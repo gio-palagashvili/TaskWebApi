@@ -31,8 +31,6 @@ namespace WepApi
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<UnhandledMiddleWare>();
-
             services.Configure<RequestLocalizationOptions>(
                 opt =>
                 {
