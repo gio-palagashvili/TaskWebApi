@@ -54,7 +54,6 @@ namespace WepApi
         {
             app.UseMiddleware<RequestLoggingMiddleware>();
             app.UseMiddleware<ReturnLanguageMiddleware>();
-            // app.UseRequestLocalization(new RequestLocalizationOptions().SetDefaultCulture("en").AddSupportedCultures("ge"));
             
             if (env.IsDevelopment())
             {

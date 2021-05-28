@@ -26,13 +26,20 @@ namespace TaskWeb.Repository
             using var conn = new MySqlConnection(ConnStr);
             conn.Open();
             const string command = "SELECT * FROM persons_tbl WHERE PersonId = @A";
-            var persons = conn.Query<Person>(command, new {A = RandomId}).ToList();
+            var persons = conn.Query<Person>(command, new { A = RandomId }).ToList();
             return (persons.Count != 0);
         }
 
         public static async Task<bool> IdExistAsyncRoute(string id)
         {
-            return await IdExistAsync(id);
+        // todo doesn't work
+            const string connStr = "server=localhost;user=root;database=taskweb_db;port=3306;password=''";
+            await using var conn = new MySqlConnection(connStr);
+            await conn.OpenAsync();
+            const string sql = "SELECT * FROM persons_tbl WHERE PersonId = @A";
+            var z = (List<Person>) await conn.QueryAsync<Person>(sql, new {a = id});
+            
+            return z.Count > 0;
         }
         public static async Task<List<Person>> FilterPerson(string value)
         {
@@ -71,24 +78,6 @@ namespace TaskWeb.Repository
             var z = ManagePersonDapper.DeletePersonAsync(id);
             return await z;
         }
-        // public static async Task<ErrorClass> UpdatePersonWhole(Person person)
-        // {
-        //     if (true)
-        //     {
-        //         await ManagePersonDapper.UpdatePerson(person);
-        //     }
-        //
-        //     if (!await IdExistAsyncRoute(person.PersonId))
-        //     {
-        //         return new ErrorClass
-        //         {
-        //             ErrorCode = ErrorList.ERROR_NON_EXISTENT,
-        //             Description = "person that you are trying to update doesn't exist"
-        //         };
-        //     }
-        //
-        //     return PersonVerifyUpdate.Verify(person);
-        // }
         public static async Task<ErrorClass> UpdatePerson(UpdateClass update)
         {
             if (!await IdExistAsyncRoute(update.PersonId))
@@ -111,21 +100,21 @@ namespace TaskWeb.Repository
                     Description = $"(case sensitive) Fname, Lname , Gender, PrivateNumber, Date, PhoneNumber, Image(submitted value : {update.Value})"
                 };
             }
-            
+
             var sql = $"UPDATE persons_tbl SET {update.Column} = '{update.Value}' WHERE PersonId = {update.PersonId}";
             switch (update.Column)
             {
                 case "Fname" or "Lname":
-                    if(await NameExists(person.Fname,update.Value)) return new ErrorClass{ErrorCode = ErrorList.OK, Description = "name already exists"};
+                    if (await NameExists(person.Fname, update.Value)) return new ErrorClass { ErrorCode = ErrorList.OK, Description = "name already exists" };
                     break;
                 case "gender":
-                    if (update.Value is not  "0" or "1")
+                    if (update.Value is not "0" or "1")
                         return new ErrorClass
-                            {ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "gender must be 1 or 0"};
+                        { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "gender must be 1 or 0" };
                     break;
                 case "PrivateNumber":
                     var v = PersonVerify.PrivateNumber(update.Value);
-                    if(v.ErrorCode != ErrorList.OK) return v;
+                    if (v.ErrorCode != ErrorList.OK) return v;
                     break;
                 case "Date":
                     var d = PersonVerify.Date(Convert.ToDateTime(update.Value));
@@ -134,12 +123,12 @@ namespace TaskWeb.Repository
                 case "City":
                     if (Regex.IsMatch(update.Column, "\\d"))
                         return new ErrorClass
-                            {ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "city contains numbers"};
+                        { ErrorCode = ErrorList.ERROR_INVALID_INPUT, Description = "city contains numbers" };
                     break;
             }
             await ManagePersonDapper.UpdatePersonSingle(sql);
-            
-            return new ErrorClass {ErrorCode = ErrorList.OK, Description = "User Updated"};
+
+            return new ErrorClass { ErrorCode = ErrorList.OK, Description = "User Updated" };
         }
     }
 }

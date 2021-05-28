@@ -9,9 +9,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="998f4350-f3a7-4bd2-a0bb-69be84df7318" name="Default Changelist" comment="Major Refactor, httpPut done">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.TaskWebApi/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.TaskWebApi/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.TaskWebApi/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TaskWebApi.Common/.vscode/launch.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TaskWebApi.Common/.vscode/tasks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TaskWebApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TaskWebApi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseSeeding/CreateRandomUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseSeeding/CreateRandomUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskWeb.Common/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskWeb.Common/TaskWeb.Common.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskWebApi.Common/ErrorClass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TaskWebApi.Common/ErrorClass.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskWebApi.Common/RequestLog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TaskWebApi.Common/RequestLog.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskWebApi.Repository.Dapper/ConnectionMethods.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TaskWebApi.Repository.Dapper/ConnectionMethods.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskWebApi.Repository.Dapper/RequestLoggerDappper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TaskWebApi.Repository.Dapper/RequestLoggerDappper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskWebApi.Repository/ManagePerson.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TaskWebApi.Repository/ManagePerson.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskWebApi.Repository/RequestLogger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TaskWebApi.Repository/RequestLogger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskWebApi.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TaskWebApi.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WepApi/Controllers/PersonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WepApi/Controllers/PersonController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WepApi/Middlewares/RequestLoggingMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WepApi/Middlewares/RequestLoggingMiddleware.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WepApi/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WepApi/Startup.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +49,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/61F5185B-E9CF-48B9-8487-181D7861EB9C/199/Monitor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Gio/Documents/c#/TaskWebApi2/TaskWebApi.Repository.Dapper/ConnectionMethods.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/61F5185B-E9CF-48B9-8487-181D7861EB9C/233/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6F1631D8-2A7F-48D9-BC4B-E4DC1DB9C4CF/38/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -56,14 +70,18 @@
       <option value="$PROJECT_DIR$/TaskWebApi.Repository/PersonVerifyUpdate.cs" />
       <option value="$PROJECT_DIR$/TaskWebApi.Repository.Dapper/RetrievePerson.Dapper.cs" />
       <option value="$PROJECT_DIR$/WepApi/Middlewares/UnhandledMiddleWare.cs" />
-      <option value="$PROJECT_DIR$/WepApi/Startup.cs" />
       <option value="$PROJECT_DIR$/TaskWebApi.Common/UpdateClass.cs" />
       <option value="$PROJECT_DIR$/TaskWebApi.Repository.Dapper/ManagePersonDapper.cs" />
-      <option value="$PROJECT_DIR$/TaskWebApi.Repository.Dapper/ConnectionMethods.cs" />
       <option value="$PROJECT_DIR$/TaskWebApi.Repository/....cs" />
-      <option value="$PROJECT_DIR$/WepApi/Controllers/PersonController.cs" />
       <option value="$PROJECT_DIR$/TaskWebApi.Repository/PersonVerify.cs" />
+      <option value="$PROJECT_DIR$/WepApi/Startup.cs" />
+      <option value="$PROJECT_DIR$/TaskWebApi.Repository/RequestLogger.cs" />
+      <option value="$PROJECT_DIR$/TaskWebApi.Common/RequestLog.cs" />
+      <option value="$PROJECT_DIR$/TaskWebApi.Repository.Dapper/RequestLoggerDappper.cs" />
+      <option value="$PROJECT_DIR$/WepApi/Middlewares/RequestLoggingMiddleware.cs" />
+      <option value="$PROJECT_DIR$/TaskWebApi.Repository.Dapper/ConnectionMethods.cs" />
       <option value="$PROJECT_DIR$/TaskWebApi.Repository/ManagePerson.cs" />
+      <option value="$PROJECT_DIR$/WepApi/Controllers/PersonController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1sqmoWzJwlp8PSproOihC5h7q1K" />
@@ -75,6 +93,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34994584" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -213,6 +232,10 @@
       <workItem from="1621812026432" duration="3474000" />
       <workItem from="1621891083045" duration="2313000" />
       <workItem from="1621960278148" duration="6179000" />
+      <workItem from="1621979503842" duration="920000" />
+      <workItem from="1622065589123" duration="744000" />
+      <workItem from="1622066450361" duration="3162000" />
+      <workItem from="1622214523545" duration="2434000" />
     </task>
     <task id="LOCAL-00001" summary="RelationReport and middleware file added">
       <created>1621614066924</created>
@@ -235,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621968180578</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Major Refactor, httpPut done">
+      <created>1621979532718</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1621979532718</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,6 +286,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="RelationReport and middleware file added" />
     <MESSAGE value="Major Refactor, httpPut semi-done" />
     <MESSAGE value="Major Refactor, httpPut done" />
