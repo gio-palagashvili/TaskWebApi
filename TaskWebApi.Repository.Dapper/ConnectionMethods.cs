@@ -23,10 +23,9 @@ namespace TaskWebApi.Repository.Dapper
         {
             await using var conn = new MySqlConnection(ConnStr);
             await conn.OpenAsync();
-            var persons = (List<PersonRelations>)await conn.QueryAsync<PersonRelations>("SELECT * FROM persons_tbl WHERE PersonId = @A",new {A = id});
-            await conn.CloseAsync();
-            
-            return persons.Count > 0;
+            const string sql = "SELECT * FROM persons_tbl WHERE PersonId = @A";
+            var z =(List<Person>)await conn.QueryAsync<Person>(sql, new {a = id});
+            return z.Count > 0;
         }
         protected static async Task<bool> IdHasRelation(string id)
         {

@@ -2,6 +2,8 @@
 	<s:String x:Key="/Default/CodeInspection/Highlighting/SweaWarningsMode/@EntryValue">DoNotShowAndRun</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=abcdefghijklmnopqrstuvxyz/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=coms/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Dappper/@EntryIndexedValue">True</s:Boolean>
+	
 	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Fname/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=gerogian/@EntryIndexedValue">True</s:Boolean>
